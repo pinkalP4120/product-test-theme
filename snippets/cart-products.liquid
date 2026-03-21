@@ -158,14 +158,16 @@
                         echo item.image | image_url: width: 250 | image_tag: class: 'cart-items__media-image border-style', style: border_override
                       -%}
                     </a>
-                    <div>
-                      <input
-                        type="hidden"
-                        name="properties[image Url]"
-                        value="{{ item.product.metafields.custom.test | image_url }}"                        
-                      >
-                     customertion URL:-  {{ item.product.metafields.custom.test | image_url }}
-                    </div>
+                    {% comment %}
+                      <div>
+                        <input
+                          type="hidden"
+                          name="properties[image Url]"
+                          value="{{ item.product.metafields.custom.test | image_url }}"
+                        >
+                       customertion URL:-  {{ item.product.metafields.custom.test | image_url }}
+                      </div>
+                    {% endcomment %}
                   {%- endif %}
                 </td>
                 <td
@@ -566,7 +568,6 @@
     display: block;
   }
 
-
   .cart-items__variant {
     display: inline;
   }
@@ -629,7 +630,6 @@
     font-size: var(--font-size--sm);
     line-height: var(--line-height);
   }
-
 
   .cart-items__price-unit {
     font-size: var(--font-size--xs);

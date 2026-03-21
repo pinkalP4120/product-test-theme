@@ -1,0 +1,486 @@
+{% if product.metafields.custom.show_product_customization.value %}
+  {{ 'product-customization.css' | asset_url | stylesheet_tag }}
+
+  <div class="product-customization-section">
+    <!-- Trigger Button and Summary -->
+    <div class="customize-trigger-wrapper">
+      <button type="button" class="button customize-trigger-btn" id="customize-trigger-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+          <defs><clipPath id="9528a"><path fill="#fff" d="M4.26 0h15.745v15.745H4.26z"></path></clipPath><clipPath id="9528b"><path fill="#fff" d="M0 3.4h15.745v15.745H0z"></path></clipPath></defs><g><g><g><path fill="#fff" d="M4.26 0h15.745v15.745H4.26z"></path><path fill="none" stroke="#2e333d" stroke-miterlimit="50" stroke-width="2" d="M4.26 0v0h15.745v15.745H4.26v0z" clip-path="url(&quot;#9528a&quot;)"></path></g><g><path fill="#fff" d="M0 3.4h15.745v15.745H0z"></path><path fill="none" stroke="#2e333d" stroke-miterlimit="50" stroke-width="2" d="M0 3.4v0h15.745v15.745H0v0z" clip-path="url(&quot;#9528b&quot;)"></path></g><g><path fill="#a8acb4" d="M4.26 5.11h1.277v1.277H4.26z"></path></g><g><path fill="#a8acb4" d="M4.26 8.09h1.277v1.277H4.26z"></path></g><g><path fill="#a8acb4" d="M4.26 11.06h1.277v1.277H4.26z"></path></g><g><path fill="#a8acb4" d="M4.26 14.04h1.277v1.277H4.26z"></path></g><g><path fill="#a8acb4" d="M6.81 14.04h1.277v1.277H6.81z"></path></g><g><path fill="#a8acb4" d="M9.79 14.04h1.277v1.277H9.79z"></path></g><g><path fill="#a8acb4" d="M12.34 14.04h1.277v1.277H12.34z"></path></g></g></g>
+        </svg>
+        CUSTOMIZE STYLE
+      </button>
+
+      <div class="customize-summary-list">
+        <div class="customize-summary-item" data-type="Neckline">
+          <h4>CHANGE NECKLINE</h4>
+          <div class="customize-summary-item-content">
+            <div class="summary-img-box">
+              <img src="" alt="Neckline">
+              <span class="as-shown-text">As Shown</span>
+            </div>
+            <span class="summary-val-text">As Shown</span>
+          </div>
+        </div>
+        <div class="customize-summary-item customize-summary-item--margins" data-type="Sleevetype">
+          <h4>CHANGE SLEEVE TYPE</h4>
+          <div class="customize-summary-item-content">
+            <div class="summary-img-box">
+              <img src="" alt="Sleeve Type">
+              <span class="as-shown-text">As Shown</span>
+            </div>
+            <span class="summary-val-text">As Shown</span>
+          </div>
+        </div>
+        <div class="customize-summary-item customize-summary-item--margins" data-type="Bottomlength">
+          <h4>CHANGE BOTTOM LENGTH</h4>
+          <div class="customize-summary-item-content">
+            <div class="summary-img-box">
+              <img src="" alt="Bottom Length">
+              <span class="as-shown-text">As Shown</span>
+            </div>
+            <span class="summary-val-text">As Shown</span>
+          </div>
+        </div>
+      </div>
+      <div style="text-align: right; margin-top: 15px; padding-bottom: 20px;">
+        <a href="#" class="customize-reset-style-btn" style="text-decoration: underline; color: #000; font-size: 14px;"
+          >Reset style</a
+        >
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="customize-modal" class="customize-modal">
+      <div class="customize-modal-overlay"></div>
+      <div class="customize-modal-content">
+        <button type="button" class="customize-modal-close" id="customize-modal-close">&times;</button>
+
+        <div class="customize-modal-body">
+          <div class="customize-modal-left">
+            <img
+              id="customize-main-image"
+              src="{{ product.featured_image | image_url: width: 600 }}"
+              alt="{{ product.title | escape }}"
+            >
+          </div>
+
+          <div class="customize-modal-right">
+            <div class="customize-modal-header">
+              <h2>Customize Your Style</h2>
+              <p>Click on any box and see the style change</p>
+            </div>
+
+            <!-- Neckline -->
+            <div class="customize-option-group" data-option-type="Neckline">
+              <h3>NECKLINE</h3>
+              <div class="customize-option-group-body">
+                <div class="customize-selected-display">
+                  <p class="customize-selected-display-label">Selected:</p>
+                  <div class="customize-selected-box">
+                    <img src="" alt="Selected Neckline">
+                  </div>
+                  <strong class="customize-selected-name">As Shown</strong>
+                </div>
+                <div class="customize-options-selector">
+                  <p class="customize-options-selector-label">Click to change Neckline</p>
+                  <div class="customize-options-grid">
+                    {% for option in product.metafields.custom.neckline_customization.value %}
+                      <div
+                        class="customize-option-box"
+                        data-value="{{ option.name }}"
+                        data-image="{{ option.image | image_url: width: 200 }}"
+                      >
+                        <div class="img-wrap">
+                          <img src="{{ option.image | image_url: width: 100 }}" alt="{{ option.name | escape }}">
+                        </div>
+                        <span>{{ option.name }}</span>
+                      </div>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sleeve Type -->
+            <div class="customize-option-group" data-option-type="Sleevetype">
+              <h3>SLEEVE TYPE</h3>
+              <div class="customize-option-group-body">
+                <div class="customize-selected-display">
+                  <p class="customize-selected-display-label">Selected:</p>
+                  <div class="customize-selected-box">
+                    <img src="" alt="Selected Sleeve Type">
+                  </div>
+                  <strong class="customize-selected-name">As Shown</strong>
+                </div>
+                <div class="customize-options-selector">
+                  <p class="customize-options-selector-label">Click to change Sleeve Type</p>
+                  <div class="customize-options-grid">
+                    {% for option in product.metafields.custom.sleeve_type_customization.value %}
+                      <div
+                        class="customize-option-box"
+                        data-value="{{ option.name }}"
+                        data-image="{{ option.image | image_url: width: 200 }}"
+                      >
+                        <div class="img-wrap">
+                          <img src="{{ option.image | image_url: width: 100 }}" alt="{{ option.name | escape }}">
+                        </div>
+                        <span>{{ option.name }}</span>
+                      </div>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bottom Length -->
+            <div class="customize-option-group" data-option-type="Bottomlength">
+              <h3>BOTTOM LENGTH</h3>
+              <div class="customize-option-group-body">
+                <div class="customize-selected-display">
+                  <p class="customize-selected-display-label">Selected:</p>
+                  <div class="customize-selected-box">
+                    <img src="" alt="Selected Bottom Length">
+                  </div>
+                  <strong class="customize-selected-name">As Shown</strong>
+                </div>
+                <div class="customize-options-selector">
+                  <p class="customize-options-selector-label">Click to change Bottom Length</p>
+                  <div class="customize-options-grid">
+                    {% for option in product.metafields.custom.length_customization.value %}
+                      <div
+                        class="customize-option-box"
+                        data-value="{{ option.name }}"
+                        data-image="{{ option.image | image_url: width: 200 }}"
+                      >
+                        <div class="img-wrap">
+                          <img src="{{ option.image | image_url: width: 100 }}" alt="{{ option.name | escape }}">
+                        </div>
+                        <span>{{ option.name }}</span>
+                      </div>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {% comment %}
+              <div style="text-align: right; margin-top: 10px;">
+                <a href="#" class="customize-reset-style-btn" style="text-decoration: underline; color: #000; font-size: 14px;">Reset style</a>
+              </div>
+            {% endcomment %}
+          </div>
+        </div>
+
+        <div class="customize-modal-footer">
+          <div class="customize-selected-text">
+            <strong>Selected style options:</strong> <span id="customize-selected-options-text">As Shown</span>
+          </div>
+          <button type="button" id="customize-proceed-button" class="customize-proceed-button">
+            SELECT STYLE & PROCEED
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const combinations = [
+        {% for item in product.metafields.custom.product_customization.value %}
+        {
+          handle: {{ item.handle_name | json }},
+          image: {{ item.image | image_url: width: 800 | json }}
+        }{% unless forloop.last %},{% endunless %}
+        {% endfor %}
+      ];
+
+      const state = {
+        Neckline: null,
+        Sleevetype: null,
+        Bottomlength: null,
+        NecklineImage: null,
+        SleevetypeImage: null,
+        BottomlengthImage: null,
+        mainImage: null
+      };
+
+      const defaultMainImage = document.getElementById('customize-main-image').src;
+
+      const triggerBtn = document.getElementById('customize-trigger-btn');
+      const modal = document.getElementById('customize-modal');
+      const closeBtn = document.getElementById('customize-modal-close');
+      const proceedBtn = document.getElementById('customize-proceed-button');
+      const resetBtns = document.querySelectorAll('.customize-reset-style-btn');
+      const overlay = document.querySelector('.customize-modal-overlay');
+
+      function slugify(text) {
+        if (!text) return '';
+        return text.toString().toLowerCase()
+          .replace(/\s+/g, '-')
+          .replace(/[^\w\-]+/g, '')
+          .replace(/\-\-+/g, '-')
+          .replace(/^-+/, '')
+          .replace(/-+$/, '');
+      }
+
+      function openModal() {
+        modal.classList.add('show');
+        document.body.classList.add('customize-modal-open');
+      }
+
+      function closeModal() {
+        modal.classList.remove('show');
+        document.body.classList.remove('customize-modal-open');
+      }
+
+      triggerBtn.addEventListener('click', openModal);
+      closeBtn.addEventListener('click', closeModal);
+      overlay.addEventListener('click', closeModal);
+      
+      resetBtns.forEach(btn => {
+          btn.addEventListener('click', function(e) {
+              e.preventDefault();
+              
+              // 1. Clear cart properties so nothing is added
+              const productForms = document.querySelectorAll('form[action*="/cart/add"]');
+              productForms.forEach(form => {
+                  form.querySelectorAll('.injected-custom-property').forEach(el => el.remove());
+              });
+              
+              // 2. Clear external frontend summary visuals back to "As Shown"
+              ['Neckline', 'Sleevetype', 'Bottomlength'].forEach(type => {
+                  const summaryItem = document.querySelector(`.customize-summary-item[data-type="${type}"]`);
+                  if (summaryItem) {
+                      const img = summaryItem.querySelector('.summary-img-box img');
+                      const asShown = summaryItem.querySelector('.as-shown-text');
+                      const valText = summaryItem.querySelector('.summary-val-text');
+
+                      img.src = '';
+                      img.style.display = 'none';
+                      asShown.style.display = 'block'; 
+                      valText.textContent = 'As Shown';
+                  }
+              });
+              
+              // 3. Re-select the first options INSIDE the modal so it looks ready and full
+              // This updates the internal modal images and text without injecting to cart
+              selectFirstOptions();
+          });
+      });
+
+      // Handle Option Selection
+      const optionBoxes = document.querySelectorAll('.customize-option-box');
+      optionBoxes.forEach(box => {
+        box.addEventListener('click', function() {
+          const group = this.closest('.customize-option-group');
+          const type = group.getAttribute('data-option-type');
+          const value = this.getAttribute('data-value');
+          const image = this.getAttribute('data-image');
+
+          // Deselect others in group
+          group.querySelectorAll('.customize-option-box').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+
+          // Update state
+          state[type] = value;
+          state[type + 'Image'] = image;
+
+          // Update selected visual in modal
+          const selectedBoxImg = group.querySelector('.customize-selected-box img');
+          const selectedBoxName = group.querySelector('.customize-selected-name');
+          selectedBoxImg.src = image;
+          selectedBoxImg.style.display = 'block';
+          selectedBoxName.textContent = value;
+
+          updateMainImage();
+          updateFooterText();
+        });
+      });
+      
+      // Select first options by default
+      function selectFirstOptions() {
+         document.querySelectorAll('.customize-option-group').forEach(group => {
+            const firstBox = group.querySelector('.customize-option-box');
+            if (firstBox) {
+               firstBox.click();
+            }
+         });
+      }
+      
+      selectFirstOptions();
+
+      function updateMainImage() {
+        const parts = [];
+        if (state.Neckline) parts.push(slugify(state.Neckline)); 
+        if (state.Sleevetype) parts.push(slugify(state.Sleevetype));
+        if (state.Bottomlength) parts.push(slugify(state.Bottomlength));
+
+        const handle = parts.join('-');
+        console.log("-----------------------------------------");
+        console.log("Selected state options:", state);
+        console.log("Generated match handle:", handle);
+
+        // Normalize combinations data for searching
+        const normalizedCombinations = combinations.map(c => {
+          let cleanHandle = c.handle ? c.handle.toLowerCase().replace(/[-_\s]+/g, '-') : '';
+          return { ...c, cleanHandle: cleanHandle };
+        });
+
+        console.log("Available combination data:", normalizedCombinations);
+
+        // 1. Exact match on clean handles
+        let match = normalizedCombinations.find(c => c.cleanHandle === handle);
+        
+        // 2. Fallbacks for typos in handles
+        if (!match) {
+           const alt1 = handle.replace('-inches-', '-inch-');
+           console.log("Trying alt handle 1:", alt1);
+           match = normalizedCombinations.find(c => c.cleanHandle === alt1);
+        }
+        if (!match) {
+           const alt2 = handle.replace('-length', '-lenght');
+           console.log("Trying alt handle 2:", alt2);
+           match = normalizedCombinations.find(c => c.cleanHandle === alt2);
+        }
+        if (!match) {
+           const alt3 = handle.replace('-inches-', '-inch-').replace('-length', '-lenght');
+           console.log("Trying alt handle 3:", alt3);
+           match = normalizedCombinations.find(c => c.cleanHandle === alt3);
+        }
+
+        // 3. Fallback for wildly different string names (e.g. "Wide V" option vs "wide_neck" handle)
+        // We'll strip specific identifier words and just look for the underlying core keywords
+        if (!match) {
+           console.log("Trying loose keyword containment fallback...");
+           match = normalizedCombinations.find(c => {
+              if (!c.cleanHandle) return false;
+              const h = c.cleanHandle;
+              
+              const getKeywords = (str) => {
+                 if (!str) return [];
+                 let clean = slugify(str).replace('-neck', '').replace('-lenght', '').replace('-length', '').replace('-dress', '').replace('-cap', '');
+                 return clean.split('-').filter(k => k.length > 2); // only matching words > 2 chars
+              }
+
+              let neckWords = getKeywords(state.Neckline);
+              let sleeveWords = getKeywords(state.Sleevetype);
+              let lengthWords = getKeywords(state.Bottomlength);
+
+              // Neckline might be "wide-v" but handle is "wide-neck", so matching "wide" works!
+              let hasNeck = neckWords.length === 0 || neckWords.some(w => h.includes(w));
+              let hasSleeve = sleeveWords.length === 0 || sleeveWords.some(w => h.includes(w));
+              let hasLength = lengthWords.length === 0 || lengthWords.some(w => h.includes(w));
+              
+              return hasNeck && hasSleeve && hasLength;
+           });
+        }
+
+        if (match && match.image) {
+          console.log("Match Found! Updating image to:", match.image);
+          const mainImg = document.getElementById('customize-main-image');
+          mainImg.src = match.image;
+          state.mainImage = match.image;
+        } else {
+          console.warn("No matching image combination found for handle:", handle);
+          state.mainImage = null;
+        }
+      }
+
+      function updateFooterText() {
+        const textArr = [];
+        if (state.Neckline) textArr.push(state.Neckline);
+        if (state.Sleevetype) textArr.push(state.Sleevetype);
+        if (state.Bottomlength) textArr.push(state.Bottomlength);
+
+        const footerText = document.getElementById('customize-selected-options-text');
+        if (textArr.length > 0) {
+          footerText.textContent = textArr.join(', ');
+        } else {
+          footerText.textContent = 'As Shown';
+        }
+      }
+
+      function applyToSummaryAndCart() {
+        // Update the trigger summary visuals
+        ['Neckline', 'Sleevetype', 'Bottomlength'].forEach(type => {
+            const summaryItem = document.querySelector(`.customize-summary-item[data-type="${type}"]`);
+            if (summaryItem) {
+              const img = summaryItem.querySelector('.summary-img-box img');
+              const asShown = summaryItem.querySelector('.as-shown-text');
+              const valText = summaryItem.querySelector('.summary-val-text');
+
+              if (state[type]) {
+                  img.src = state[type + 'Image'];
+                  img.style.display = 'block';
+                  asShown.style.display = 'none';
+                  valText.textContent = state[type];
+              } else {
+                  img.src = '';
+                  img.style.display = 'none';
+                  asShown.style.display = 'block'; // Or whatever default display it was
+                  valText.textContent = 'As Shown';
+              }
+            }
+        });
+
+        // Inject hidden inputs to the main product form so that it submits to cart
+        const productForms = document.querySelectorAll('form[action*="/cart/add"]');
+        
+        productForms.forEach(form => {
+           // Remove existing injected inputs first
+           form.querySelectorAll('.injected-custom-property').forEach(el => el.remove());
+
+           if (state.Neckline || state.Sleevetype || state.Bottomlength) {
+              const styleInput = document.createElement('input');
+              styleInput.type = 'hidden';
+              styleInput.name = 'properties[_Style]';
+              styleInput.value = 'Customized';
+              styleInput.classList.add('injected-custom-property');
+              form.appendChild(styleInput);
+           }
+
+           if (state.Neckline) {
+              const input = document.createElement('input');
+              input.type = 'hidden';
+              input.name = 'properties[Neckline]';
+              input.value = state.Neckline;
+              input.classList.add('injected-custom-property');
+              form.appendChild(input);
+           }
+           if (state.Sleevetype) {
+              const input = document.createElement('input');
+              input.type = 'hidden';
+              input.name = 'properties[Sleevetype]';
+              input.value = state.Sleevetype;
+              input.classList.add('injected-custom-property');
+              form.appendChild(input);
+           }
+           if (state.Bottomlength) {
+              const input = document.createElement('input');
+              input.type = 'hidden';
+              input.name = 'properties[Bottomlength]';
+              input.value = state.Bottomlength;
+              input.classList.add('injected-custom-property');
+              form.appendChild(input);
+           }
+           
+           if (state.mainImage) {
+              const input = document.createElement('input');
+              input.type = 'hidden';
+              input.name = 'properties[Customize Image URL]';
+              input.value = state.mainImage;
+              input.classList.add('injected-custom-property');
+              form.appendChild(input);
+           }
+        });
+      }
+
+      proceedBtn.addEventListener('click', function() {
+        applyToSummaryAndCart();
+        closeModal();
+      });
+
+    });
+    </script>
+  </div>
+{% endif %}
