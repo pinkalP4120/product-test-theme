@@ -63,11 +63,15 @@
           value="{{ product.selected_or_first_available_variant.id }}"
         >
         {% comment %}
-          <input
-            type="hidden"
-            name="properties[image Url]"
-            value="{{ product.metafields.custom.test | image_url }}"
-          >
+          {% comment %}
+            <input
+              type="hidden"
+              name="properties[image Url]"
+              value="{{ product.metafields.custom.test | image_url }}"
+              value="{{ product.metafields.custom.test | image_url }}"
+            >
+          {% endcomment %}
+          {% comment %} customertion URL:-  {{ item.product.metafields.custom.test | image_url }} {% endcomment %}
         {% endcomment %}
         {% comment %} customertion URL:-  {{ item.product.metafields.custom.test | image_url }} {% endcomment %}
         {%- if block_settings.gift_card_form and product.gift_card? -%}
